@@ -42,6 +42,7 @@
     <commands />
     <urls />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -80,16 +81,28 @@
       <workItem from="1774442186298" duration="6234000" />
       <workItem from="1774853761449" duration="8799000" />
       <workItem from="1775047985125" duration="3544000" />
-      <workItem from="1776287048448" duration="4842000" />
+      <workItem from="1776287048448" duration="5150000" />
     </task>
+    <task id="LOCAL-00001" summary="Basic fron-end witch includes home page, logIn page and Register page without back-end logic behind it yet">
+      <option name="closed" value="true" />
+      <created>1776298718661</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1776298718661</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Basic fron-end witch includes home page, logIn page and Register page without back-end logic behind it yet" />
+    <option name="LAST_COMMIT_MESSAGE" value="Basic fron-end witch includes home page, logIn page and Register page without back-end logic behind it yet" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
