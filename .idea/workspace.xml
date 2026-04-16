@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="006bbaa1-80ec-468c-a4a4-9dea5d9e44b2" name="Changes" comment="" />
+    <list default="true" id="006bbaa1-80ec-468c-a4a4-9dea5d9e44b2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,7 +64,6 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "Feature-Front-end",
     "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -81,7 +84,7 @@
       <workItem from="1774442186298" duration="6234000" />
       <workItem from="1774853761449" duration="8799000" />
       <workItem from="1775047985125" duration="3544000" />
-      <workItem from="1776287048448" duration="5150000" />
+      <workItem from="1776287048448" duration="6034000" />
     </task>
     <task id="LOCAL-00001" summary="Basic fron-end witch includes home page, logIn page and Register page without back-end logic behind it yet">
       <option name="closed" value="true" />
@@ -91,7 +94,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776298718661</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="message">
+      <option name="closed" value="true" />
+      <created>1776299258647</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1776299258647</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -102,7 +113,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Basic fron-end witch includes home page, logIn page and Register page without back-end logic behind it yet" />
-    <option name="LAST_COMMIT_MESSAGE" value="Basic fron-end witch includes home page, logIn page and Register page without back-end logic behind it yet" />
+    <MESSAGE value="message" />
+    <option name="LAST_COMMIT_MESSAGE" value="message" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
