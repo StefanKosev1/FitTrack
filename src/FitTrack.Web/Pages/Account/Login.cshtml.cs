@@ -6,6 +6,9 @@ namespace FitTrack.Web.Pages.Account;
 
 public class LoginModel : PageModel
 {
+    [TempData]
+    public string? StatusMessage { get; set; }
+
     [BindProperty]
     public LoginInputModel Input { get; set; } = new();
 
@@ -21,6 +24,7 @@ public class LoginModel : PageModel
         }
 
         await Task.CompletedTask;
-        throw new NotImplementedException();
+        StatusMessage = $"Demo login accepted for {Input.Email}. Authentication is not wired yet.";
+        return RedirectToPage("/Index");
     }
 }
