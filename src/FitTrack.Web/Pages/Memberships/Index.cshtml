@@ -1,0 +1,56 @@
+@page
+@model FitTrack.Web.Pages.Memberships.IndexModel
+@{
+    ViewData["Title"] = "Membership";
+}
+
+<section class="section-head membership-head">
+    <p class="eyebrow">Membership</p>
+    <h1>Choose your access.</h1>
+    <p class="page-lead">Manage the plan connected to your FitTrack account.</p>
+</section>
+
+@if (Model.ActiveMembership is not null)
+{
+    <section class="card membership-status">
+        <div>
+            <p class="feature-kicker">Active Plan</p>
+            <h2>@Model.ActiveMembership.PlanName</h2>
+        </div>
+        <dl class="membership-dates">
+            <div>
+                <dt>Started</dt>
+                <dd>@Model.ActiveMembership.StartsAtUtc.ToLocalTime().ToString("dd MMM yyyy")</dd>
+            </div>
+            <div>
+                <dt>Renews</dt>
+                <dd>@Model.ActiveMembership.EndsAtUtc.ToLocalTime().ToString("dd MMM yyyy")</dd>
+            </div>
+        </dl>
+    </section>
+}
+else
+{
+    <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+    <section class="membership-grid">
+        @foreach (var plan in Model.Plans)
+        {
+            <article class="card membership-card">
+                <div>
+                    <p class="feature-kicker">@plan.DurationInDays days</p>
+                    <h2>@plan.Name</h2>
+                    <p>@plan.Description</p>
+                </div>
+
+                <div class="membership-card-footer">
+                    <strong>@plan.Price.ToString("C")</strong>
+                    <form method="post" asp-page-handler="Start">
+                        <input type="hidden" name="SelectedPlanId" value="@plan.Id" />
+                        <button type="submit" class="primary-button">Start Plan</button>
+                    </form>
+                </div>
+            </article>
+        }
+    </section>
+}

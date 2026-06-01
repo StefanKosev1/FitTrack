@@ -1,3 +1,10 @@
+using FitTrack.Base.Data;
+using FitTrack.Base.Repositories;
+using FitTrack.Core.Interfaces.Data;
+using FitTrack.Core.Interfaces.Repositories;
+using FitTrack.Core.Interfaces.Services;
+using FitTrack.Core.Services;
+
 namespace FitTrack.Web.Configuration;
 
 public static class DependencyInjection
@@ -6,6 +13,29 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
+        if (configuration.GetValue<bool>("UseInMemoryUserRepository"))
+        {
+            services.AddSingleton<IUserRepository, InMemoryUserRepository>();
+            services.AddSingleton<IMembershipRepository, InMemoryMembershipRepository>();
+            services.AddSingleton<IQRCodeRepository, InMemoryQRCodeRepository>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IMembershipService, MembershipService>();
+            services.AddScoped<IQRCodeService, QRCodeService>();
+
+            return services;
+        }
+
+        var connectionString = configuration.GetConnectionString("DefaultConnection")
+            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is missing.");
+
+        services.AddSingleton<IDbConnectionFactory>(_ => new SqlConnectionFactory(connectionString));
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IMembershipRepository, MembershipRepository>();
+        services.AddScoped<IQRCodeRepository, QRCodeRepository>();
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IMembershipService, MembershipService>();
+        services.AddScoped<IQRCodeService, QRCodeService>();
+
         return services;
     }
 }

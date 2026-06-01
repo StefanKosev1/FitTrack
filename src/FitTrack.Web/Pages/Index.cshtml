@@ -4,7 +4,87 @@
     ViewData["Title"] = "FitTrack";
 }
 
-<section class="text-center">
-    <h1 class="display-5">FitTrack</h1>
-    <p class="lead">Project scaffold based on Razor Pages, Core, and Base.</p>
+<section class="hero hero-grid">
+    <div class="hero-copy">
+        <p class="eyebrow">Train Hard. Track Clean.</p>
+        <h1>Built for people who actually show up.</h1>
+        <p class="page-lead">
+            FitTrack is a sharper gym front end for memberships, check-ins, and class visibility, wrapped in a darker brand that feels closer to a real training space.
+        </p>
+        <div class="hero-actions">
+            <a class="primary-button" asp-page="/Account/Register">Join The Crew</a>
+            <a class="secondary-button" asp-page="/Account/Login">Member Login</a>
+        </div>
+        <ul class="hero-points">
+            <li>Strength floor access</li>
+            <li>Coach-led classes</li>
+            <li>Simple membership control</li>
+        </ul>
+    </div>
+
+    <aside class="hero-panel">
+        <div class="showcase-card showcase-image">
+            <div class="showcase-overlay">
+                <span class="showcase-tag">Open 24/7</span>
+                <strong>Industrial floor. Low light. Loud sessions.</strong>
+            </div>
+        </div>
+        <div class="metric-stack">
+            <div class="metric-card">
+                <span class="metric-label">Members Training</span>
+                <strong>420+</strong>
+                <span class="metric-note">Across strength, conditioning, and recovery.</span>
+            </div>
+            <div class="metric-card accent">
+                <span class="metric-label">Weekly Classes</span>
+                <strong>38</strong>
+                <span class="metric-note">Barbell, HIIT, mobility, and combat circuits.</span>
+            </div>
+        </div>
+        <div class="schedule-card">
+            <div class="timeline-header">
+                <span>Tonight's Pulse</span>
+                <span class="timeline-badge">Prime Time</span>
+            </div>
+            <ul class="timeline-list">
+                <li>
+                    <strong>18:00</strong>
+                    <span>Strength block with coach-led platform work.</span>
+                </li>
+                <li>
+                    <strong>19:00</strong>
+                    <span>Conditioning circuit focused on speed and engine.</span>
+                </li>
+                <li>
+                    <strong>20:15</strong>
+                    <span>Recovery session with stretch, breath, and reset work.</span>
+                </li>
+            </ul>
+        </div>
+    </aside>
+</section>
+
+<section class="section-head">
+    <p class="eyebrow">What The Space Feels Like</p>
+    <h2>No wellness fluff. Just clean systems and serious training energy.</h2>
+</section>
+
+<section class="feature-grid">
+    <article class="card feature-card">
+        <p class="feature-kicker">Strength</p>
+        <h3>Heavy equipment, uncluttered layout</h3>
+        <p>Racks, platforms, sled lanes, and cable stations are presented like the core of the brand, not an afterthought.</p>
+    </article>
+
+    <article class="card feature-card">
+        <p class="feature-kicker">Conditioning</p>
+        <h3>Programs built around repeatable effort</h3>
+        <p>Classes and session blocks are framed around momentum, intensity, and consistency instead of generic admin language.</p>
+    </article>
+
+    <article class="card feature-card">
+        <p class="feature-kicker">Membership</p>
+        <h3>A front end that can still sell the place</h3>
+        <p>Even before the back end is finished, the site now looks like a gym somebody would actually want to join.</p>
+    </article>
 </section>
