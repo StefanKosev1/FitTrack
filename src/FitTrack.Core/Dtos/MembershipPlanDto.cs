@@ -1,6 +1,6 @@
-namespace FitTrack.Core.Entities;
+namespace FitTrack.Core.Dtos;
 
-public class MembershipPlan
+public class MembershipPlanDto
 {
     public int Id { get; set; }
 

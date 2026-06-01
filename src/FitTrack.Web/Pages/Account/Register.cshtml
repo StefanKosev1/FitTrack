@@ -4,10 +4,11 @@
     ViewData["Title"] = "Register";
 }
 
-<section class="card">
+<section class="auth-shell">
+<div class="auth-card">
     <p class="eyebrow">Join FitTrack</p>
-    <h1>Create your account and start training.</h1>
-    <p class="page-lead">This starter flow collects the basics for a new member profile. Persistence can be wired in when the database is ready.</p>
+    <h1>Create account</h1>
+    <p class="page-lead">Create a member account with your name, email, and password.</p>
 
     <form method="post" class="form-stack">
         <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
@@ -32,6 +33,7 @@
 
         <button type="submit" class="primary-button">Create Account</button>
     </form>
+</div>
 </section>
 
 @section Scripts {

@@ -1,0 +1,38 @@
+@page
+@model FitTrack.Web.Pages.Dashboard.IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="section-head dashboard-head">
+    <p class="eyebrow">Member Dashboard</p>
+    <h1>Your gym access.</h1>
+    <p class="page-lead">Show this personal code at the entrance to check in.</p>
+</section>
+
+@if (Model.NeedsMembership)
+{
+    <section class="card qr-card">
+        <div>
+            <p class="feature-kicker">Membership Required</p>
+            <h2>No QR Code Yet</h2>
+            <p class="page-lead">Choose an active membership before your personal gym access code is issued.</p>
+        </div>
+        <a class="primary-button" asp-page="/Memberships/Index">Choose Membership</a>
+    </section>
+}
+else
+{
+    <section class="dashboard-grid">
+        <article class="card qr-card">
+            <div class="qr-frame">
+                @Html.Raw(Model.QRCodeSvg)
+            </div>
+            <div>
+                <p class="feature-kicker">Personal QR Code</p>
+                <h2>Ready To Scan</h2>
+                <p class="qr-code-text">@Model.QRCode?.Code</p>
+            </div>
+        </article>
+    </section>
+}

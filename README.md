@@ -5,8 +5,9 @@
 From the repository root:
 
 ```bash
-dotnet build src/FitTrack.Web/FitTrack.Web.csproj
-dotnet run --project src/FitTrack.Web/FitTrack.Web.csproj --launch-profile http
+cd /Users/stefankosev/RiderProjects/FitTrack
+dotnet build --no-restore src/FitTrack.Web/FitTrack.Web.csproj -v:minimal
+dotnet run --no-build --project src/FitTrack.Web/FitTrack.Web.csproj --launch-profile http
 ```
 
 Open the app at:
@@ -18,5 +19,15 @@ http://localhost:5149
 If you already built the project and want to skip rebuilding:
 
 ```bash
+cd /Users/stefankosev/RiderProjects/FitTrack
+dotnet run --no-build --project src/FitTrack.Web/FitTrack.Web.csproj --launch-profile http
+```
+
+If dependencies need to be restored first:
+
+```bash
+cd /Users/stefankosev/RiderProjects/FitTrack
+dotnet restore src/FitTrack.Web/FitTrack.Web.csproj
+dotnet build src/FitTrack.Web/FitTrack.Web.csproj -v:minimal
 dotnet run --no-build --project src/FitTrack.Web/FitTrack.Web.csproj --launch-profile http
 ```

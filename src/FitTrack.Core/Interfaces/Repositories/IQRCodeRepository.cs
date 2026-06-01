@@ -4,5 +4,7 @@ namespace FitTrack.Core.Interfaces.Repositories;
 
 public interface IQRCodeRepository
 {
-    Task<QRCode?> GetByUserIdAsync(int userId);
+    Task<QRCode?> GetByUserIdAsync(Guid userId);
+
+    Task<QRCode> CreateAsync(QRCode qrCode);
 }

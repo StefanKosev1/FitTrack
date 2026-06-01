@@ -4,10 +4,11 @@
     ViewData["Title"] = "Login";
 }
 
-<section class="card">
+<section class="auth-shell">
+<div class="auth-card">
     <p class="eyebrow">Member Access</p>
-    <h1>Sign in and get back to work.</h1>
-    <p class="page-lead">Use the demo login to enter the FitTrack member area. Authentication is still placeholder logic for now.</p>
+    <h1>Sign in</h1>
+    <p class="page-lead">Sign in with an existing FitTrack member account.</p>
 
     <form method="post" class="form-stack">
         <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
@@ -26,6 +27,7 @@
 
         <button type="submit" class="primary-button">Login</button>
     </form>
+</div>
 </section>
 
 @section Scripts {

@@ -1,4 +1,4 @@
-namespace FitTrack.Core.Models;
+namespace FitTrack.Core.Dtos;
 
 public class UserDto
 {

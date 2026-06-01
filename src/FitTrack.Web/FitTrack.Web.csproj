@@ -1,11 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <ProjectReference Include="..\FitTrack.Base\FitTrack.Base.csproj" />
     <ProjectReference Include="..\FitTrack.Core\FitTrack.Core.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <UserSecretsId>2f224224-cf87-4e73-b549-6713f37140b9</UserSecretsId>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
