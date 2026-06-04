@@ -18,7 +18,8 @@ public static class DependencyInjection
             services.AddSingleton<IUserRepository, InMemoryUserRepository>();
             services.AddSingleton<IMembershipRepository, InMemoryMembershipRepository>();
             services.AddSingleton<IQRCodeRepository, InMemoryQRCodeRepository>();
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddScoped<IMembershipService, MembershipService>();
             services.AddScoped<IQRCodeService, QRCodeService>();
 
@@ -32,7 +33,8 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IMembershipRepository, MembershipRepository>();
         services.AddScoped<IQRCodeRepository, QRCodeRepository>();
-        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ILoginService, LoginService>();
+        services.AddScoped<IRegistrationService, RegistrationService>();
         services.AddScoped<IMembershipService, MembershipService>();
         services.AddScoped<IQRCodeService, QRCodeService>();
 

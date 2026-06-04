@@ -31,3 +31,18 @@ dotnet restore src/FitTrack.Web/FitTrack.Web.csproj
 dotnet build src/FitTrack.Web/FitTrack.Web.csproj -v:minimal
 dotnet run --no-build --project src/FitTrack.Web/FitTrack.Web.csproj --launch-profile http
 ```
+
+## Run The Tests
+
+From the repository root:
+
+```bash
+cd /Users/stefankosev/RiderProjects/FitTrack
+dotnet test tests/FitTrack.Core.Tests/FitTrack.Core.Tests.csproj
+```
+
+Successful output should include:
+
+```text
+Passed!  - Failed: 0, Passed: 5, Skipped: 0, Total: 5
+```
