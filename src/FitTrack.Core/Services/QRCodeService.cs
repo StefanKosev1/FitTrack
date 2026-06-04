@@ -10,7 +10,7 @@ public class QRCodeService : IQRCodeService
 {
     private readonly IQRCodeRepository _qrCodeRepository;
     private readonly IMembershipRepository _membershipRepository;
-
+    
     public QRCodeService(
         IQRCodeRepository qrCodeRepository,
         IMembershipRepository membershipRepository)
@@ -19,6 +19,7 @@ public class QRCodeService : IQRCodeService
         _membershipRepository = membershipRepository;
     }
 
+    // Returns an existing QR code or creates one for an active member.
     public async Task<QRCodeDto> GetOrCreateForUserAsync(Guid userId)
     {
         var activeMembership = await _membershipRepository.GetActiveByUserIdAsync(userId);
@@ -47,6 +48,7 @@ public class QRCodeService : IQRCodeService
         return ToDto(createdCode);
     }
 
+    // Maps the internal QR code entity to a safe DTO for the web layer.
     private static QRCodeDto ToDto(QRCode qrCode)
     {
         return new QRCodeDto

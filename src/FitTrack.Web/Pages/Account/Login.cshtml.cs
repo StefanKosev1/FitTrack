@@ -11,12 +11,12 @@ namespace FitTrack.Web.Pages.Account;
 
 public class LoginModel : PageModel
 {
-    private readonly IAuthService _authService;
+    private readonly ILoginService _loginService;
     private readonly ILogger<LoginModel> _logger;
 
-    public LoginModel(IAuthService authService, ILogger<LoginModel> logger)
+    public LoginModel(ILoginService loginService, ILogger<LoginModel> logger)
     {
-        _authService = authService;
+        _loginService = loginService;
         _logger = logger;
     }
 
@@ -40,7 +40,7 @@ public class LoginModel : PageModel
         AuthResult result;
         try
         {
-            result = await _authService.LoginAsync(Input.Email, Input.Password);
+            result = await _loginService.LoginAsync(Input.Email, Input.Password);
         }
         catch (Exception exception)
         {
