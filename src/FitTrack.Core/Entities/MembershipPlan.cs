@@ -1,14 +1,53 @@
 namespace FitTrack.Core.Entities;
 
-public class MembershipPlan
+public sealed class MembershipPlan
 {
-    public int Id { get; set; }
+    private MembershipPlan(int id, string name, string description, decimal price, int durationInDays)
+    {
+        if (id <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(id), "Plan ID must be positive.");
+        }
 
-    public string Name { get; set; } = string.Empty;
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new ArgumentException("Plan name is required.", nameof(name));
+        }
 
-    public string Description { get; set; } = string.Empty;
+        if (string.IsNullOrWhiteSpace(description))
+        {
+            throw new ArgumentException("Plan description is required.", nameof(description));
+        }
 
-    public decimal Price { get; set; }
+        if (price < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(price), "Plan price cannot be negative.");
+        }
 
-    public int DurationInDays { get; set; }
+        if (durationInDays <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(durationInDays), "Plan duration must be positive.");
+        }
+
+        Id = id;
+        Name = name.Trim();
+        Description = description.Trim();
+        Price = price;
+        DurationInDays = durationInDays;
+    }
+
+    public int Id { get; private set; }
+
+    public string Name { get; private set; }
+
+    public string Description { get; private set; }
+
+    public decimal Price { get; private set; }
+
+    public int DurationInDays { get; private set; }
+
+    public static MembershipPlan Restore(int id, string name, string description, decimal price, int durationInDays)
+    {
+        return new MembershipPlan(id, name, description, price, durationInDays);
+    }
 }

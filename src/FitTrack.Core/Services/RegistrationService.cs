@@ -29,15 +29,7 @@ public class RegistrationService : IRegistrationService
         }
 
         var passwordHash = PasswordHasher.HashPassword(password);
-        var user = new User
-        {
-            Id = Guid.NewGuid(),
-            FullName = fullName.Trim(),
-            Email = normalizedEmail,
-            PasswordSalt = passwordHash.Salt,
-            PasswordHash = passwordHash.Hash,
-            CreatedAtUtc = DateTime.UtcNow
-        };
+        var user = User.Create(fullName, normalizedEmail, passwordHash.Hash, passwordHash.Salt);
 
         await _userRepository.CreateAsync(user);
 

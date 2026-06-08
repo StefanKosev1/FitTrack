@@ -1,52 +1,62 @@
 using FitTrack.Core.Services;
-using Xunit;
+using FitTrack.Core.Tests.Fakes;
 
-namespace FitTrack.Core.Tests;
+namespace FitTrack.Core.Tests.Services;
 
-public class LoginServiceTests
+[TestClass]
+public sealed class LoginServiceTests
 {
-    [Fact]
+    [TestMethod]
     public async Task LoginAsync_WithCorrectPassword_ReturnsSuccess()
     {
+        // Arrange
         var repository = new FakeUserRepository();
         var registrationService = new RegistrationService(repository);
         var loginService = new LoginService(repository);
         await registrationService.RegisterAsync("Alex Member", "alex@example.com", "Password123!");
 
+        // Act
         var result = await loginService.LoginAsync(" alex@example.com ", "Password123!");
 
-        Assert.True(result.IsSuccess);
-        Assert.NotNull(result.UserId);
-        Assert.Equal("Alex Member", result.FullName);
-        Assert.Equal("alex@example.com", result.Email);
-        Assert.Null(result.ErrorMessage);
+        // Assert
+        Assert.IsTrue(result.IsSuccess);
+        Assert.IsNotNull(result.UserId);
+        Assert.AreEqual("Alex Member", result.FullName);
+        Assert.AreEqual("alex@example.com", result.Email);
+        Assert.IsNull(result.ErrorMessage);
     }
 
-    [Fact]
+    [TestMethod]
     public async Task LoginAsync_WithWrongPassword_ReturnsFailure()
     {
+        // Arrange
         var repository = new FakeUserRepository();
         var registrationService = new RegistrationService(repository);
         var loginService = new LoginService(repository);
         await registrationService.RegisterAsync("Alex Member", "alex@example.com", "Password123!");
 
+        // Act
         var result = await loginService.LoginAsync("alex@example.com", "WrongPassword123!");
 
-        Assert.False(result.IsSuccess);
-        Assert.Equal("Invalid email or password.", result.ErrorMessage);
-        Assert.Null(result.UserId);
+        // Assert
+        Assert.IsFalse(result.IsSuccess);
+        Assert.AreEqual("Invalid email or password.", result.ErrorMessage);
+        Assert.IsNull(result.UserId);
     }
 
-    [Fact]
+    [TestMethod]
     public async Task LoginAsync_WithUnknownEmail_ReturnsFailure()
     {
+        // Arrange
         var repository = new FakeUserRepository();
-        var loginService = new LoginService(repository);
+        var service = new LoginService(repository);
 
-        var result = await loginService.LoginAsync("missing@example.com", "Password123!");
+        // Act
+        var result = await service.LoginAsync("missing@example.com", "Password123!");
 
-        Assert.False(result.IsSuccess);
-        Assert.Equal("Invalid email or password.", result.ErrorMessage);
-        Assert.Null(result.UserId);
+        // Assert
+        Assert.IsFalse(result.IsSuccess);
+        Assert.AreEqual("Invalid email or password.", result.ErrorMessage);
+        Assert.IsNull(result.UserId);
     }
 }

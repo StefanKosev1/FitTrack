@@ -32,15 +32,13 @@ public class UserRepository : IUserRepository
             return null;
         }
 
-        return new User
-        {
-            Id = reader.GetGuid(reader.GetOrdinal("id")),
-            FullName = reader.GetString(reader.GetOrdinal("full_name")),
-            Email = reader.GetString(reader.GetOrdinal("email")),
-            PasswordHash = reader.GetString(reader.GetOrdinal("password_hash")),
-            PasswordSalt = reader.GetString(reader.GetOrdinal("password_salt")),
-            CreatedAtUtc = reader.GetDateTime(reader.GetOrdinal("created_at_utc"))
-        };
+        return User.Restore(
+            reader.GetGuid(reader.GetOrdinal("id")),
+            reader.GetString(reader.GetOrdinal("full_name")),
+            reader.GetString(reader.GetOrdinal("email")),
+            reader.GetString(reader.GetOrdinal("password_hash")),
+            reader.GetString(reader.GetOrdinal("password_salt")),
+            reader.GetDateTime(reader.GetOrdinal("created_at_utc")));
     }
 
     public async Task<User> CreateAsync(User user)
@@ -50,8 +48,6 @@ public class UserRepository : IUserRepository
         {
             throw new InvalidOperationException("A user with this email already exists.");
         }
-
-        user.Email = user.Email.Trim();
 
         await using var connection = await _connectionFactory.CreateOpenConnectionAsync();
         await using var command = connection.CreateCommand();

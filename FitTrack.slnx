@@ -1,5 +1,7 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/FitTrack.Base/FitTrack.Base.csproj" />
+    <Project Path="src/FitTrack.Core/FitTrack.Core.csproj" />
     <Project Path="src/FitTrack.Web/FitTrack.Web.csproj" />
   </Folder>
   <Folder Name="/tests/">

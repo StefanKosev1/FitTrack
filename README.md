@@ -44,5 +44,5 @@ dotnet test tests/FitTrack.Core.Tests/FitTrack.Core.Tests.csproj
 Successful output should include:
 
 ```text
-Passed!  - Failed: 0, Passed: 5, Skipped: 0, Total: 5
+Passed!  - Failed: 0, Passed: 7, Skipped: 0, Total: 7
 ```

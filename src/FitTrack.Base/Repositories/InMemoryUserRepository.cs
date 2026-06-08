@@ -18,8 +18,6 @@ public class InMemoryUserRepository : IUserRepository
 
     public Task<User> CreateAsync(User user)
     {
-        user.Email = user.Email.Trim();
-
         if (!_users.TryAdd(user.Email, user))
         {
             throw new InvalidOperationException("A user with this email already exists.");

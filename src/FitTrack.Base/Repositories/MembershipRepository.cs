@@ -32,14 +32,12 @@ public class MembershipRepository : IMembershipRepository
         await using var reader = await command.ExecuteReaderAsync();
         while (await reader.ReadAsync())
         {
-            plans.Add(new MembershipPlan
-            {
-                Id = reader.GetInt32(reader.GetOrdinal("id")),
-                Name = reader.GetString(reader.GetOrdinal("name")),
-                Description = reader.GetString(reader.GetOrdinal("description")),
-                Price = reader.GetDecimal(reader.GetOrdinal("price")),
-                DurationInDays = reader.GetInt32(reader.GetOrdinal("duration_days"))
-            });
+            plans.Add(MembershipPlan.Restore(
+                reader.GetInt32(reader.GetOrdinal("id")),
+                reader.GetString(reader.GetOrdinal("name")),
+                reader.GetString(reader.GetOrdinal("description")),
+                reader.GetDecimal(reader.GetOrdinal("price")),
+                reader.GetInt32(reader.GetOrdinal("duration_days"))));
         }
 
         return plans;
@@ -61,15 +59,13 @@ public class MembershipRepository : IMembershipRepository
             return null;
         }
 
-        return new Membership
-        {
-            Id = reader.GetGuid(reader.GetOrdinal("id")),
-            UserId = reader.GetGuid(reader.GetOrdinal("user_id")),
-            PlanId = reader.GetInt32(reader.GetOrdinal("plan_id")),
-            PlanName = reader.GetString(reader.GetOrdinal("plan_name")),
-            StartsAtUtc = reader.GetDateTime(reader.GetOrdinal("starts_at_utc")),
-            EndsAtUtc = reader.GetDateTime(reader.GetOrdinal("ends_at_utc"))
-        };
+        return Membership.Restore(
+            reader.GetGuid(reader.GetOrdinal("id")),
+            reader.GetGuid(reader.GetOrdinal("user_id")),
+            reader.GetInt32(reader.GetOrdinal("plan_id")),
+            reader.GetString(reader.GetOrdinal("plan_name")),
+            reader.GetDateTime(reader.GetOrdinal("starts_at_utc")),
+            reader.GetDateTime(reader.GetOrdinal("ends_at_utc")));
     }
 
     public async Task<Membership> CreateAsync(Membership membership)
