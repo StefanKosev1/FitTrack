@@ -16,7 +16,26 @@ public class RegistrationService : IRegistrationService
 
     public async Task<AuthResult> RegisterAsync(string fullName, string email, string password)
     {
-        var normalizedEmail = email.Trim();
+        var normalizedEmail = email?.Trim();
+
+        if (!AuthenticationInputValidator.IsValidEmail(normalizedEmail))
+        {
+            return new AuthResult
+            {
+                IsSuccess = false,
+                ErrorMessage = "A valid email address is required."
+            };
+        }
+
+        if (!AuthenticationInputValidator.IsValidPassword(password))
+        {
+            return new AuthResult
+            {
+                IsSuccess = false,
+                ErrorMessage = "Password must be between 8 and 100 characters."
+            };
+        }
+
         var existingUser = await _userRepository.GetByEmailAsync(normalizedEmail);
 
         if (existingUser is not null)

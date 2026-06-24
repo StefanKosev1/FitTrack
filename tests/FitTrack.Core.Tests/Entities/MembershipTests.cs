@@ -5,6 +5,7 @@ namespace FitTrack.Core.Tests.Entities;
 [TestClass]
 public sealed class MembershipTests
 {
+    // Tests that starting a membership uses the selected plan duration and details.
     [TestMethod]
     public void Start_WithValidUserAndPlan_CreatesMembershipForPlanDuration()
     {
@@ -28,6 +29,7 @@ public sealed class MembershipTests
         Assert.AreEqual(30d, (membership.EndsAtUtc - membership.StartsAtUtc).TotalDays);
     }
 
+    // Tests that restoring a membership with an invalid date range is rejected.
     [TestMethod]
     public void Restore_WithEndDateBeforeStartDate_ThrowsArgumentException()
     {

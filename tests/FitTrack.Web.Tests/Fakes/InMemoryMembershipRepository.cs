@@ -2,9 +2,9 @@ using System.Collections.Concurrent;
 using FitTrack.Core.Entities;
 using FitTrack.Core.Interfaces.Repositories;
 
-namespace FitTrack.Base.Repositories;
+namespace FitTrack.Web.Tests.Fakes;
 
-public class InMemoryMembershipRepository : IMembershipRepository
+internal sealed class InMemoryMembershipRepository : IMembershipRepository
 {
     private static readonly IReadOnlyCollection<MembershipPlan> Plans =
     [

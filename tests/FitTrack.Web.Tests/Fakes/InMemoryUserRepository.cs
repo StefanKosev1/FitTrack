@@ -2,9 +2,9 @@ using System.Collections.Concurrent;
 using FitTrack.Core.Entities;
 using FitTrack.Core.Interfaces.Repositories;
 
-namespace FitTrack.Base.Repositories;
+namespace FitTrack.Web.Tests.Fakes;
 
-public class InMemoryUserRepository : IUserRepository
+internal sealed class InMemoryUserRepository : IUserRepository
 {
     private readonly ConcurrentDictionary<string, User> _users = new(StringComparer.OrdinalIgnoreCase);
 

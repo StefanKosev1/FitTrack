@@ -13,19 +13,6 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        if (configuration.GetValue<bool>("UseInMemoryUserRepository"))
-        {
-            services.AddSingleton<IUserRepository, InMemoryUserRepository>();
-            services.AddSingleton<IMembershipRepository, InMemoryMembershipRepository>();
-            services.AddSingleton<IQRCodeRepository, InMemoryQRCodeRepository>();
-            services.AddScoped<ILoginService, LoginService>();
-            services.AddScoped<IRegistrationService, RegistrationService>();
-            services.AddScoped<IMembershipService, MembershipService>();
-            services.AddScoped<IQRCodeService, QRCodeService>();
-
-            return services;
-        }
-
         var connectionString = configuration.GetConnectionString("DefaultConnection")
             ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is missing.");
 

@@ -34,15 +34,35 @@ dotnet run --no-build --project src/FitTrack.Web/FitTrack.Web.csproj --launch-pr
 
 ## Run The Tests
 
-From the repository root:
+From the repository root, run all unit and integration tests:
 
 ```bash
 cd /Users/stefankosev/RiderProjects/FitTrack
+dotnet test FitTrack.slnx
+```
+
+Run only the core unit tests:
+
+```bash
 dotnet test tests/FitTrack.Core.Tests/FitTrack.Core.Tests.csproj
 ```
 
-Successful output should include:
+Run only the web integration tests:
+
+```bash
+dotnet test tests/FitTrack.Web.Tests/FitTrack.Web.Tests.csproj
+```
+
+After dependencies have already been restored, use `--no-restore` for faster runs:
+
+```bash
+dotnet test FitTrack.slnx --no-restore
+```
+
+Successful full-suite output should report:
 
 ```text
-Passed!  - Failed: 0, Passed: 7, Skipped: 0, Total: 7
+Core tests: 26 passed
+Integration tests: 3 passed
+Total: 29 passed
 ```
