@@ -15,16 +15,19 @@ public class LoginService : ILoginService
 
     public async Task<AuthResult> LoginAsync(string email, string password)
     {
-        var normalizedEmail = email.Trim();
+        var normalizedEmail = email?.Trim();
+
+        if (!AuthenticationInputValidator.IsValidEmail(normalizedEmail)
+            || !AuthenticationInputValidator.IsValidPassword(password))
+        {
+            return InvalidCredentials();
+        }
+
         var user = await _userRepository.GetByEmailAsync(normalizedEmail);
 
         if (user is null || !PasswordHasher.VerifyPassword(password, user.PasswordSalt, user.PasswordHash))
         {
-            return new AuthResult
-            {
-                IsSuccess = false,
-                ErrorMessage = "Invalid email or password."
-            };
+            return InvalidCredentials();
         }
 
         return new AuthResult
@@ -33,6 +36,15 @@ public class LoginService : ILoginService
             UserId = user.Id,
             FullName = user.FullName,
             Email = user.Email
+        };
+    }
+
+    private static AuthResult InvalidCredentials()
+    {
+        return new AuthResult
+        {
+            IsSuccess = false,
+            ErrorMessage = "Invalid email or password."
         };
     }
 }

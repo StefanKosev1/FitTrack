@@ -1,28 +1,28 @@
 # FitTrack Current Structure
 
-This document captures the current project structure for architecture and class diagrams.
+This document describes the current solution structure and the main class
+relationships used by the application and its tests.
 
 ## Solution Overview
 
 ```text
 FitTrack
-|-- FitTrack.slnx
-|-- Directory.Build.props
-|-- docs
-|   `-- current-structure.md
-`-- src
-    |-- FitTrack.Core
-    |-- FitTrack.Base
-    `-- FitTrack.Web
+|-- src
+|   |-- FitTrack.Core
+|   |-- FitTrack.Base
+|   `-- FitTrack.Web
+`-- tests
+    |-- FitTrack.Core.Tests
+    `-- FitTrack.Web.Tests
 ```
-
-## Project Responsibilities
 
 | Project | Responsibility |
 | --- | --- |
-| `FitTrack.Core` | Domain entities, repository/service contracts, and core business services. |
-| `FitTrack.Base` | Infrastructure implementations such as SQL access, SQL query text, and repositories. |
-| `FitTrack.Web` | ASP.NET Core Razor Pages UI, dependency injection setup, configuration, and static assets. |
+| `FitTrack.Core` | Entities, DTOs, results, interfaces, validation, and business services. |
+| `FitTrack.Base` | SQL Server connection, query definitions, and production repository implementations. |
+| `FitTrack.Web` | Razor Pages, input models, authentication, configuration, and dependency injection. |
+| `FitTrack.Core.Tests` | Unit tests with a `FakeUserRepository`. |
+| `FitTrack.Web.Tests` | Web integration tests with in-memory repository implementations. |
 
 ## Project Dependencies
 
@@ -31,22 +31,29 @@ flowchart LR
     Web[FitTrack.Web] --> Core[FitTrack.Core]
     Web --> Base[FitTrack.Base]
     Base --> Core
+    CoreTests[FitTrack.Core.Tests] --> Core
+    WebTests[FitTrack.Web.Tests] --> Web
 ```
 
-`FitTrack.Core` is the innermost project and has no project references. `FitTrack.Base` depends on `FitTrack.Core` to implement its interfaces. `FitTrack.Web` references both projects so it can register implementations and use core services.
+`FitTrack.Core` has no project references. Production repository
+implementations belong to `FitTrack.Base`; fake and in-memory repositories
+belong to the test projects.
 
-## Source Tree
+## Current Source Tree
 
 ```text
 src
 |-- FitTrack.Core
+|   |-- Dtos
+|   |   |-- MembershipDto.cs
+|   |   |-- MembershipPlanDto.cs
+|   |   |-- QRCodeDto.cs
+|   |   `-- UserDto.cs
 |   |-- Entities
-|   |   |-- AuthResult.cs
 |   |   |-- Membership.cs
 |   |   |-- MembershipPlan.cs
 |   |   |-- QRCode.cs
-|   |   |-- User.cs
-|   |   `-- UserDto.cs
+|   |   `-- User.cs
 |   |-- Interfaces
 |   |   |-- Data
 |   |   |   `-- IDbConnectionFactory.cs
@@ -55,13 +62,19 @@ src
 |   |   |   |-- IQRCodeRepository.cs
 |   |   |   `-- IUserRepository.cs
 |   |   `-- Services
-|   |       |-- IAccessService.cs
-|   |       |-- IAuthService.cs
-|   |       `-- IMembershipService.cs
+|   |       |-- ILoginService.cs
+|   |       |-- IMembershipService.cs
+|   |       |-- IQRCodeService.cs
+|   |       `-- IRegistrationService.cs
+|   |-- Results
+|   |   `-- AuthResult.cs
 |   `-- Services
-|       |-- AccessService.cs
-|       |-- AuthService.cs
-|       `-- MembershipService.cs
+|       |-- AuthenticationInputValidator.cs
+|       |-- LoginService.cs
+|       |-- MembershipService.cs
+|       |-- PasswordHasher.cs
+|       |-- QRCodeService.cs
+|       `-- RegistrationService.cs
 |-- FitTrack.Base
 |   |-- Data
 |   |   `-- SqlConnectionFactory.cs
@@ -70,7 +83,6 @@ src
 |   |   |-- QRCodeSqlQueries.cs
 |   |   `-- UserSqlQueries.cs
 |   `-- Repositories
-|       |-- InMemoryUserRepository.cs
 |       |-- MembershipRepository.cs
 |       |-- QRCodeRepository.cs
 |       `-- UserRepository.cs
@@ -79,219 +91,285 @@ src
     |   `-- DependencyInjection.cs
     |-- Pages
     |   |-- Account
-    |   |   |-- Login.cshtml
-    |   |   |-- Login.cshtml.cs
-    |   |   |-- Logout.cshtml
-    |   |   |-- Logout.cshtml.cs
-    |   |   |-- Register.cshtml
-    |   |   `-- Register.cshtml.cs
-    |   |-- Shared
-    |   |   |-- _Layout.cshtml
-    |   |   `-- _ValidationScriptsPartial.cshtml
-    |   |-- Error.cshtml
-    |   |-- Error.cshtml.cs
-    |   |-- Index.cshtml
-    |   |-- Index.cshtml.cs
-    |   |-- _ViewImports.cshtml
-    |   `-- _ViewStart.cshtml
-    |-- Properties
-    |   `-- launchSettings.json
+    |   |-- Dashboard
+    |   `-- Memberships
     |-- ViewModels
     |   `-- Account
     |       |-- LoginInputModel.cs
     |       `-- RegisterInputModel.cs
-    |-- wwwroot
-    |   |-- css
-    |   |   `-- site.css
-    |   |-- img
-    |   |   `-- auth-graffiti-gym.png
-    |   |-- js
-    |   |   `-- site.js
-    |   `-- favicon.ico
-    |-- Program.cs
-    |-- appsettings.Development.json
-    `-- appsettings.json
+    `-- Program.cs
+
+tests
+|-- FitTrack.Core.Tests
+|   |-- Entities
+|   |-- Fakes
+|   |   `-- FakeUserRepository.cs
+|   `-- Services
+|       |-- LoginServiceTests.cs
+|       `-- RegistrationServiceTests.cs
+`-- FitTrack.Web.Tests
+    |-- Fakes
+    |   |-- InMemoryMembershipRepository.cs
+    |   |-- InMemoryQRCodeRepository.cs
+    |   `-- InMemoryUserRepository.cs
+    |-- FitTrackWebApplicationFactory.cs
+    `-- FitTrackWebTests.cs
 ```
 
-## Core Layer
+## Authentication Classes
 
-### Entities
-
-| Entity | Current purpose |
-| --- | --- |
-| `User` | Account entity with `Id`, `FullName`, `Email`, password hash/salt, and creation timestamp. |
-| `AuthResult` | Authentication operation result returned from login and registration. |
-| `UserDto` | Lightweight user data transfer shape. |
-| `Membership` | Placeholder entity for membership data. |
-| `MembershipPlan` | Placeholder entity for membership plan data. |
-| `QRCode` | Placeholder entity for QR code access data. |
+There is no combined `AuthService`. Login and registration have separate
+interfaces and services. They share static validation and password-hashing
+helpers.
 
 ```mermaid
 classDiagram
-    class User {
-        Guid Id
-        string FullName
-        string Email
-        string PasswordHash
-        string PasswordSalt
-        DateTime CreatedAtUtc
+    class ILoginService {
+        <<interface>>
+        +LoginAsync(string email, string password) Task~AuthResult~
+    }
+
+    class IRegistrationService {
+        <<interface>>
+        +RegisterAsync(string fullName, string email, string password) Task~AuthResult~
+    }
+
+    class LoginService {
+        -IUserRepository userRepository
+        +LoginAsync(string email, string password) Task~AuthResult~
+    }
+
+    class RegistrationService {
+        -IUserRepository userRepository
+        +RegisterAsync(string fullName, string email, string password) Task~AuthResult~
+    }
+
+    class AuthenticationInputValidator {
+        <<static>>
+        +int MinimumPasswordLength
+        +int MaximumPasswordLength
+        +IsValidEmail(string email) bool
+        +IsValidPassword(string password) bool
+    }
+
+    class PasswordHasher {
+        <<static>>
+        +HashPassword(string password)
+        +VerifyPassword(string password, string salt, string hash) bool
+    }
+
+    class IUserRepository {
+        <<interface>>
+        +GetByEmailAsync(string email) Task~User?~
+        +CreateAsync(User user) Task~User~
     }
 
     class AuthResult {
-        bool IsSuccess
-        string? ErrorMessage
-        string? FullName
-        string? Email
+        +bool IsSuccess
+        +Guid? UserId
+        +string? ErrorMessage
+        +string? FullName
+        +string? Email
     }
 
-    class UserDto {
-        int Id
-        string FullName
-        string Email
-        bool IsActive
-    }
-
-    class Membership
-    class MembershipPlan
-    class QRCode
+    ILoginService <|.. LoginService
+    IRegistrationService <|.. RegistrationService
+    LoginService --> IUserRepository
+    RegistrationService --> IUserRepository
+    LoginService ..> AuthenticationInputValidator : validates input
+    RegistrationService ..> AuthenticationInputValidator : validates input
+    LoginService ..> PasswordHasher : verifies password
+    RegistrationService ..> PasswordHasher : hashes password
+    LoginService ..> AuthResult : returns
+    RegistrationService ..> AuthResult : returns
 ```
 
-### Interfaces And Services
+`AuthenticationInputValidator` and `PasswordHasher` are internal static helper
+classes. They are not injected services and do not need interfaces.
+
+## Core Services
 
 ```mermaid
 classDiagram
-    class IAuthService {
-        LoginAsync(string email, string password) Task~AuthResult~
-        RegisterAsync(string fullName, string email, string password) Task~AuthResult~
-    }
-
-    class AuthService
-    IAuthService <|.. AuthService
-    AuthService --> IUserRepository
-    AuthService --> User
-    AuthService --> AuthResult
-
-    class IUserRepository {
-        GetByEmailAsync(string email) Task~User?~
-        CreateAsync(User user) Task~User~
-    }
-
     class IMembershipService {
-        GetActiveMembershipAsync(int userId) Task~Membership?~
+        <<interface>>
+        +GetPlansAsync() Task
+        +GetActiveMembershipAsync(Guid userId) Task
+        +StartMembershipAsync(Guid userId, int planId) Task
     }
 
     class MembershipService
-    IMembershipService <|.. MembershipService
-    MembershipService --> Membership
-
-    class IAccessService {
-        CanUserAccessGymAsync(int userId) Task~bool~
+    class IMembershipRepository {
+        <<interface>>
     }
 
-    class AccessService
-    IAccessService <|.. AccessService
+    class IQRCodeService {
+        <<interface>>
+        +GetOrCreateForUserAsync(Guid userId) Task
+    }
+
+    class QRCodeService
+    class IQRCodeRepository {
+        <<interface>>
+    }
+
+    IMembershipService <|.. MembershipService
+    IQRCodeService <|.. QRCodeService
+    MembershipService --> IMembershipRepository
+    QRCodeService --> IQRCodeRepository
+    QRCodeService --> IMembershipRepository
 ```
 
-## Infrastructure Layer
+## Production Repositories
 
 ```mermaid
 classDiagram
     class IDbConnectionFactory {
-        CreateOpenConnectionAsync() Task~DbConnection~
+        <<interface>>
+        +CreateOpenConnectionAsync() Task~DbConnection~
     }
 
     class SqlConnectionFactory
     IDbConnectionFactory <|.. SqlConnectionFactory
 
-    class IUserRepository
+    class IUserRepository {
+        <<interface>>
+    }
+    class IMembershipRepository {
+        <<interface>>
+    }
+    class IQRCodeRepository {
+        <<interface>>
+    }
+
     class UserRepository
-    class InMemoryUserRepository
-    IUserRepository <|.. UserRepository
-    IUserRepository <|.. InMemoryUserRepository
-    UserRepository --> IDbConnectionFactory
-    UserRepository --> UserSqlQueries
-
-    class IMembershipRepository
     class MembershipRepository
-    IMembershipRepository <|.. MembershipRepository
-    MembershipRepository --> MembershipSqlQueries
-
-    class IQRCodeRepository
     class QRCodeRepository
+
+    IUserRepository <|.. UserRepository
+    IMembershipRepository <|.. MembershipRepository
     IQRCodeRepository <|.. QRCodeRepository
-    QRCodeRepository --> QRCodeSqlQueries
+
+    UserRepository --> IDbConnectionFactory
+    MembershipRepository --> IDbConnectionFactory
+    QRCodeRepository --> IDbConnectionFactory
+
+    UserRepository ..> UserSqlQueries
+    MembershipRepository ..> MembershipSqlQueries
+    QRCodeRepository ..> QRCodeSqlQueries
 ```
 
-## Web Layer
+The production repositories use SQL Server through `SqlConnectionFactory`.
+They are the only repository implementations under `src`.
+
+## Test Repositories
+
+Test doubles are kept under `tests`, so they are not shipped as production
+infrastructure.
+
+```mermaid
+classDiagram
+    class IUserRepository {
+        <<interface>>
+    }
+    class IMembershipRepository {
+        <<interface>>
+    }
+    class IQRCodeRepository {
+        <<interface>>
+    }
+
+    class FakeUserRepository {
+        <<FitTrack.Core.Tests>>
+    }
+
+    class InMemoryUserRepository {
+        <<FitTrack.Web.Tests>>
+    }
+    class InMemoryMembershipRepository {
+        <<FitTrack.Web.Tests>>
+    }
+    class InMemoryQRCodeRepository {
+        <<FitTrack.Web.Tests>>
+    }
+
+    IUserRepository <|.. FakeUserRepository
+    IUserRepository <|.. InMemoryUserRepository
+    IMembershipRepository <|.. InMemoryMembershipRepository
+    IQRCodeRepository <|.. InMemoryQRCodeRepository
+```
+
+- `FakeUserRepository` supports focused Core unit tests.
+- The three `InMemory...Repository` classes replace SQL repositories during
+  web integration tests.
+- `FitTrackWebApplicationFactory` performs those test-only dependency
+  injection replacements.
+
+## Web And Dependency Injection
 
 ```mermaid
 flowchart TD
     Program[Program.cs] --> DI[DependencyInjection.cs]
-    DI --> AuthService[IAuthService -> AuthService]
-    DI --> UserRepo{UseInMemoryUserRepository}
-    UserRepo -->|true| MemoryRepo[IUserRepository -> InMemoryUserRepository]
-    UserRepo -->|false| SqlFactory[IDbConnectionFactory -> SqlConnectionFactory]
-    SqlFactory --> SqlRepo[IUserRepository -> UserRepository]
 
-    LoginPage[Account/Login.cshtml.cs] --> IAuthService
-    RegisterPage[Account/Register.cshtml.cs] --> IAuthService
-    LogoutPage[Account/Logout.cshtml.cs] --> Session[ASP.NET session/auth state]
+    DI --> Login[ILoginService to LoginService]
+    DI --> Registration[IRegistrationService to RegistrationService]
+    DI --> Membership[IMembershipService to MembershipService]
+    DI --> QRCode[IQRCodeService to QRCodeService]
+
+    DI --> UserRepo[IUserRepository to UserRepository]
+    DI --> MembershipRepo[IMembershipRepository to MembershipRepository]
+    DI --> QRRepo[IQRCodeRepository to QRCodeRepository]
+    DI --> SqlFactory[IDbConnectionFactory to SqlConnectionFactory]
+
+    LoginPage[Account Login PageModel] --> ILoginService
+    RegisterPage[Account Register PageModel] --> IRegistrationService
 ```
 
-## Current Runtime Flow
+| Service | Production implementation | Lifetime |
+| --- | --- | --- |
+| `IDbConnectionFactory` | `SqlConnectionFactory` | Singleton |
+| `IUserRepository` | `UserRepository` | Scoped |
+| `IMembershipRepository` | `MembershipRepository` | Scoped |
+| `IQRCodeRepository` | `QRCodeRepository` | Scoped |
+| `ILoginService` | `LoginService` | Scoped |
+| `IRegistrationService` | `RegistrationService` | Scoped |
+| `IMembershipService` | `MembershipService` | Scoped |
+| `IQRCodeService` | `QRCodeService` | Scoped |
 
-### Register
+## Registration Flow
 
 ```mermaid
 sequenceDiagram
-    participant Browser
-    participant RegisterPage as Register PageModel
-    participant AuthService
-    participant UserRepository as IUserRepository
+    participant Page as Register PageModel
+    participant Service as RegistrationService
+    participant Validator as AuthenticationInputValidator
+    participant Hasher as PasswordHasher
+    participant Repository as IUserRepository
 
-    Browser->>RegisterPage: Submit full name, email, password
-    RegisterPage->>AuthService: RegisterAsync(...)
-    AuthService->>UserRepository: GetByEmailAsync(email)
-    UserRepository-->>AuthService: User? result
-    AuthService->>AuthService: Hash password with PBKDF2
-    AuthService->>UserRepository: CreateAsync(user)
-    UserRepository-->>AuthService: Created user
-    AuthService-->>RegisterPage: AuthResult
-    RegisterPage-->>Browser: Redirect or show validation error
+    Page->>Service: RegisterAsync(fullName, email, password)
+    Service->>Validator: Validate email and password
+    Service->>Repository: GetByEmailAsync(email)
+    Repository-->>Service: Existing user or null
+    Service->>Hasher: HashPassword(password)
+    Service->>Repository: CreateAsync(user)
+    Repository-->>Service: Created user
+    Service-->>Page: AuthResult
 ```
 
-### Login
+## Login Flow
 
 ```mermaid
 sequenceDiagram
-    participant Browser
-    participant LoginPage as Login PageModel
-    participant AuthService
-    participant UserRepository as IUserRepository
+    participant Page as Login PageModel
+    participant Service as LoginService
+    participant Validator as AuthenticationInputValidator
+    participant Hasher as PasswordHasher
+    participant Repository as IUserRepository
 
-    Browser->>LoginPage: Submit email and password
-    LoginPage->>AuthService: LoginAsync(email, password)
-    AuthService->>UserRepository: GetByEmailAsync(email)
-    UserRepository-->>AuthService: User? result
-    AuthService->>AuthService: Verify PBKDF2 password hash
-    AuthService-->>LoginPage: AuthResult
-    LoginPage-->>Browser: Redirect or show validation error
+    Page->>Service: LoginAsync(email, password)
+    Service->>Validator: Validate email and password
+    Service->>Repository: GetByEmailAsync(email)
+    Repository-->>Service: User or null
+    Service->>Hasher: VerifyPassword(password, salt, hash)
+    Service-->>Page: AuthResult
 ```
-
-## Dependency Injection Registrations
-
-| Condition | Service | Implementation | Lifetime |
-| --- | --- | --- | --- |
-| `UseInMemoryUserRepository = true` | `IUserRepository` | `InMemoryUserRepository` | Singleton |
-| Always in in-memory mode | `IAuthService` | `AuthService` | Scoped |
-| `UseInMemoryUserRepository = false` | `IDbConnectionFactory` | `SqlConnectionFactory` | Singleton |
-| `UseInMemoryUserRepository = false` | `IUserRepository` | `UserRepository` | Scoped |
-| Always in SQL mode | `IAuthService` | `AuthService` | Scoped |
-
-## Notes For Diagrams
-
-- The `Models` folder has been removed from `FitTrack.Core`; `AuthResult` and `UserDto` now live with the other core entities under `FitTrack.Core.Entities`.
-- `Membership`, `MembershipPlan`, and `QRCode` are currently empty placeholder entities.
-- `MembershipRepository`, `QRCodeRepository`, `AccessService`, and `MembershipService` currently throw `NotImplementedException`.
-- `UserRepository` is the current SQL-backed implementation of `IUserRepository`.
-- `InMemoryUserRepository` is available for development/testing when configured through `UseInMemoryUserRepository`.

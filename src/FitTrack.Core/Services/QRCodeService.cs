@@ -35,13 +35,7 @@ public class QRCodeService : IQRCodeService
         }
 
         var tokenBytes = RandomNumberGenerator.GetBytes(24);
-        var qrCode = new QRCode
-        {
-            Id = Guid.NewGuid(),
-            UserId = userId,
-            Code = $"FITTRACK-{Convert.ToHexString(tokenBytes)}",
-            CreatedAtUtc = DateTime.UtcNow
-        };
+        var qrCode = QRCode.Create(userId, $"FITTRACK-{Convert.ToHexString(tokenBytes)}");
 
         var createdCode = await _qrCodeRepository.CreateAsync(qrCode);
 

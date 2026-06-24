@@ -34,13 +34,11 @@ public class QRCodeRepository : IQRCodeRepository
             return null;
         }
 
-        return new QRCode
-        {
-            Id = reader.GetGuid(reader.GetOrdinal("id")),
-            UserId = reader.GetGuid(reader.GetOrdinal("user_id")),
-            Code = reader.GetString(reader.GetOrdinal("code")),
-            CreatedAtUtc = reader.GetDateTime(reader.GetOrdinal("created_at_utc"))
-        };
+        return QRCode.Restore(
+            reader.GetGuid(reader.GetOrdinal("id")),
+            reader.GetGuid(reader.GetOrdinal("user_id")),
+            reader.GetString(reader.GetOrdinal("code")),
+            reader.GetDateTime(reader.GetOrdinal("created_at_utc")));
     }
 
     public async Task<QRCode> CreateAsync(QRCode qrCode)

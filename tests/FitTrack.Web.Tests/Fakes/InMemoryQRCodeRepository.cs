@@ -2,9 +2,9 @@ using System.Collections.Concurrent;
 using FitTrack.Core.Entities;
 using FitTrack.Core.Interfaces.Repositories;
 
-namespace FitTrack.Base.Repositories;
+namespace FitTrack.Web.Tests.Fakes;
 
-public class InMemoryQRCodeRepository : IQRCodeRepository
+internal sealed class InMemoryQRCodeRepository : IQRCodeRepository
 {
     private readonly ConcurrentDictionary<Guid, QRCode> _qrCodes = new();
 

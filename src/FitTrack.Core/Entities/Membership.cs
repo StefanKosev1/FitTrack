@@ -1,18 +1,94 @@
 namespace FitTrack.Core.Entities;
 
-public class Membership
+public sealed class Membership
 {
-    public Guid Id { get; set; }
+    private Membership(
+        Guid id,
+        Guid userId,
+        int planId,
+        string planName,
+        DateTime startsAtUtc,
+        DateTime endsAtUtc)
+    {
+        if (id == Guid.Empty)
+        {
+            throw new ArgumentException("Membership ID is required.", nameof(id));
+        }
 
-    public Guid UserId { get; set; }
+        if (userId == Guid.Empty)
+        {
+            throw new ArgumentException("User ID is required.", nameof(userId));
+        }
 
-    public int PlanId { get; set; }
+        if (planId <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(planId), "Plan ID must be positive.");
+        }
 
-    public string PlanName { get; set; } = string.Empty;
+        if (string.IsNullOrWhiteSpace(planName))
+        {
+            throw new ArgumentException("Plan name is required.", nameof(planName));
+        }
 
-    public DateTime StartsAtUtc { get; set; }
+        if (startsAtUtc == default)
+        {
+            throw new ArgumentException("Membership start date is required.", nameof(startsAtUtc));
+        }
 
-    public DateTime EndsAtUtc { get; set; }
+        if (endsAtUtc <= startsAtUtc)
+        {
+            throw new ArgumentException("Membership end date must be after its start date.", nameof(endsAtUtc));
+        }
 
-    public bool IsActive => StartsAtUtc <= DateTime.UtcNow && EndsAtUtc > DateTime.UtcNow;
+        Id = id;
+        UserId = userId;
+        PlanId = planId;
+        PlanName = planName.Trim();
+        StartsAtUtc = startsAtUtc;
+        EndsAtUtc = endsAtUtc;
+    }
+
+    public Guid Id { get; private set; }
+
+    public Guid UserId { get; private set; }
+
+    public int PlanId { get; private set; }
+
+    public string PlanName { get; private set; }
+
+    public DateTime StartsAtUtc { get; private set; }
+
+    public DateTime EndsAtUtc { get; private set; }
+
+    public bool IsActive => IsActiveAt(DateTime.UtcNow);
+
+    public static Membership Start(Guid userId, MembershipPlan plan)
+    {
+        ArgumentNullException.ThrowIfNull(plan);
+
+        var startsAtUtc = DateTime.UtcNow;
+        return new Membership(
+            Guid.NewGuid(),
+            userId,
+            plan.Id,
+            plan.Name,
+            startsAtUtc,
+            startsAtUtc.AddDays(plan.DurationInDays));
+    }
+
+    public static Membership Restore(
+        Guid id,
+        Guid userId,
+        int planId,
+        string planName,
+        DateTime startsAtUtc,
+        DateTime endsAtUtc)
+    {
+        return new Membership(id, userId, planId, planName, startsAtUtc, endsAtUtc);
+    }
+
+    public bool IsActiveAt(DateTime utcNow)
+    {
+        return StartsAtUtc <= utcNow && EndsAtUtc > utcNow;
+    }
 }

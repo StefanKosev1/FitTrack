@@ -3,11 +3,22 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="CMakeProjectFlavorService">
+    <option name="flavorId" value="CMakePlainProjectFlavor" />
+  </component>
+  <component name="CMakeSettings">
+    <configurations />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="006bbaa1-80ec-468c-a4a4-9dea5d9e44b2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/awsToolkit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/awsToolkit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FitTrack.slnx" beforeDir="false" afterPath="$PROJECT_DIR$/FitTrack.slnx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/FitTrack.Core.Tests/FakeUserRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/FitTrack.Core.Tests/FitTrack.Core.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/tests/FitTrack.Core.Tests/FitTrack.Core.Tests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/FitTrack.Core.Tests/LoginServiceTests.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/FitTrack.Core.Tests/RegistrationServiceTests.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,38 +26,83 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="132" />
+    <option name="cachedIndexableFilesCount" value="450" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;StefanKosev1&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/StefanKosev1/FitTrack.git&quot;,
+    &quot;accountId&quot;: &quot;1255efc8-940c-419b-8b4c-a7a3735f10e1&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;StefanKosev1&quot;,
+    &quot;repository&quot;: &quot;FitTrack&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/FitTrack.Base/Data/SqlConnectionFactory.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Base/Queries/UserSqlQueries.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Base/Queries/UserSqlQueries.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Base/Repositories/InMemoryMembershipRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Base/Repositories/InMemoryQRCodeRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Base/Repositories/MembershipRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Base/Repositories/QRCodeRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Base/Repositories/UserRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Dtos/MembershipDto.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Dtos/MembershipPlanDto.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Dtos/QRCodeDto.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Dtos/UserDto.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Entities/Membership.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Entities/MembershipPlan.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Entities/MembershipPlan.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Entities/QRCode.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Entities/User.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Data/IDbConnectionFactory.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Repositories/IMembershipRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Repositories/IQRCodeRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Repositories/IUserRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Services/IAccessService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Services/IAuthService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Services/IMembershipService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Models/AuthResult.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Services/AccessService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Services/AuthService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Entities/User.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Data/IDbConnectionFactory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Repositories/IMembershipRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Repositories/IQRCodeRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Repositories/IUserRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Services/IAccessService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Services/IMembershipService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Interfaces/Services/IQRCodeService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Results/AuthResult.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Services/AccessService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Services/MembershipService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Services/PasswordHasher.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Services/QRCodeService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Core/Services/RegistrationService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Web/Configuration/DependencyInjection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Web/Pages/Account/Login.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Web/Pages/Account/Login.cshtml.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Web/Pages/Dashboard/Index.cshtml.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Web/Pages/Error.cshtml.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/FitTrack.Web/Pages/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Web/Pages/Index.cshtml.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Web/Pages/Memberships/Index.cshtml.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/FitTrack.Web/Pages/_ViewImports.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/FitTrack.Web/Pages/_ViewStart.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/FitTrack.Web/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/FitTrack.Web/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/tests/FitTrack.Core.Tests/Program.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -61,15 +117,21 @@
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "cidr.known.project.marker": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "#2 on Feature-Front-end",
     "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -85,6 +147,30 @@
       <workItem from="1774853761449" duration="8799000" />
       <workItem from="1775047985125" duration="3544000" />
       <workItem from="1776287048448" duration="6034000" />
+      <workItem from="1776299813172" duration="226000" />
+      <workItem from="1776325855537" duration="164000" />
+      <workItem from="1776326114861" duration="663000" />
+      <workItem from="1776330861190" duration="8022000" />
+      <workItem from="1776379943609" duration="4920000" />
+      <workItem from="1778450154684" duration="10985000" />
+      <workItem from="1778484122669" duration="7203000" />
+      <workItem from="1778501591646" duration="639000" />
+      <workItem from="1778502245091" duration="5385000" />
+      <workItem from="1779091647124" duration="248000" />
+      <workItem from="1779091937895" duration="291000" />
+      <workItem from="1779092343979" duration="63000" />
+      <workItem from="1779092616566" duration="109000" />
+      <workItem from="1779094195950" duration="56000" />
+      <workItem from="1779094284691" duration="4777000" />
+      <workItem from="1779412536381" duration="130000" />
+      <workItem from="1779461245888" duration="654000" />
+      <workItem from="1779708698730" duration="18000" />
+      <workItem from="1780172764270" duration="10546000" />
+      <workItem from="1780253952822" duration="280000" />
+      <workItem from="1780254255377" duration="33519000" />
+      <workItem from="1780559059298" duration="76000" />
+      <workItem from="1780559148052" duration="60000" />
+      <workItem from="1780559253463" duration="2351000" />
     </task>
     <task id="LOCAL-00001" summary="Basic fron-end witch includes home page, logIn page and Register page without back-end logic behind it yet">
       <option name="closed" value="true" />
@@ -102,7 +188,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776299258647</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Basic front-end">
+      <option name="closed" value="true" />
+      <created>1776299960101</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1776299960101</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,7 +208,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Basic fron-end witch includes home page, logIn page and Register page without back-end logic behind it yet" />
     <MESSAGE value="message" />
-    <option name="LAST_COMMIT_MESSAGE" value="message" />
+    <MESSAGE value="Basic front-end" />
+    <option name="LAST_COMMIT_MESSAGE" value="Basic front-end" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -133,5 +228,9 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

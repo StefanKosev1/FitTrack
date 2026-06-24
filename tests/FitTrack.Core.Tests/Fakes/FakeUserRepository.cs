@@ -2,11 +2,12 @@ using System.Collections.Concurrent;
 using FitTrack.Core.Entities;
 using FitTrack.Core.Interfaces.Repositories;
 
-namespace FitTrack.Core.Tests;
+namespace FitTrack.Core.Tests.Fakes;
 
-internal class FakeUserRepository : IUserRepository
+internal sealed class FakeUserRepository : IUserRepository
 {
-    private readonly ConcurrentDictionary<string, User> _users = new(StringComparer.OrdinalIgnoreCase);
+    private readonly ConcurrentDictionary<string, User> _users =
+        new(StringComparer.OrdinalIgnoreCase);
 
     public Task<User?> GetByEmailAsync(string email)
     {
@@ -17,8 +18,6 @@ internal class FakeUserRepository : IUserRepository
 
     public Task<User> CreateAsync(User user)
     {
-        user.Email = user.Email.Trim();
-
         if (!_users.TryAdd(user.Email, user))
         {
             throw new InvalidOperationException("A user with this email already exists.");

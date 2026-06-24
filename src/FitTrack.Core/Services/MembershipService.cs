@@ -48,16 +48,7 @@ public class MembershipService : IMembershipService
             throw new InvalidOperationException("The selected membership plan does not exist.");
         }
 
-        var startsAtUtc = DateTime.UtcNow;
-        var membership = new Membership
-        {
-            Id = Guid.NewGuid(),
-            UserId = userId,
-            PlanId = selectedPlan.Id,
-            PlanName = selectedPlan.Name,
-            StartsAtUtc = startsAtUtc,
-            EndsAtUtc = startsAtUtc.AddDays(selectedPlan.DurationInDays)
-        };
+        var membership = Membership.Start(userId, selectedPlan);
 
         var createdMembership = await _membershipRepository.CreateAsync(membership);
 
